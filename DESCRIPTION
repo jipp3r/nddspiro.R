@@ -1,0 +1,12 @@
+Package: nddspiro
+Type: Package
+Title: Extracts Spirometry Data From ndd XML Files
+Version: 0.9.0
+Author: Jamie Rylance
+Maintainer: Jamie Rylance <jamie.rylance@lstmed.ac.uk>
+Description: For creating a datatable of spirometry tests from an
+    ndd Easyware XML file.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
