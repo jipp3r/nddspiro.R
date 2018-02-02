@@ -40,7 +40,7 @@ Although efforts have been made to verify correct operation of this software, I 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the GPL-3 License
 
 ## Acknowledgments
 
