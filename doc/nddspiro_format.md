@@ -33,10 +33,11 @@ Columns within the dataframe describe the following details:
 For each requested measure, 4 columns. Column titles are appended by "_1", "_2", "_3"... to indicate 1st, 2nd and 3rd... ranked trial. The number of trials given can be altered using the `nddspiro.read(... traces=n)` parameter.
 
 [repeating block begins]
-* __*measure*_value__ Double. Values for given measure
-* __*measure*_unit__ Character vector. Unit for given measure.
-* __*measure*_pred__ Double. Predicted value for given measure, based on the __PredictedSet__
-* __*measure*_lln__ Double. Lower limit of normal for given measure, based on the __PredictedSet__
+* __measure_value__ Double. Values for given measure.
+* __measure_unit__ Character vector. Unit for given measure.
+* __measure_pred__ Double. Predicted value for given measure, based on the __PredictedSet__
+* __measure_lln__ Double. Lower limit of normal for given measure, based on the __PredictedSet__
+
 [repeating block ends]
 
 Optional- z scores based on GLI-2012 (Quanjer) references are given if requested using `nddspiro-read(... add_gli=TRUE)` parameter. Z scors represent the number of standard deviations from the predicted (population mean) value. Typically z=-1.64 (10th centile) is considered abnormal for spirometry. The given values are calculated from Rank=1 trial. 
