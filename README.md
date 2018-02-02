@@ -30,6 +30,9 @@ Optionally, nddspiro can calculate GLI 2012 (Quanjer) reference ranges. This req
 devtools::install_git("https://github.com/thlytras/rspiro.git")
 ```
 
+## Output format
+nddspiro produces an R dataframe. Full details are given in (doc/nddspiro_format.md)
+
 ## Disclaimer
 
 Although efforts have been made to verify correct operation of this software, I cannot accept any liability arising from its use. The software is provided "as is", without any express or implied warranty, and no implication of fitness for a particular use.
@@ -40,7 +43,7 @@ Although efforts have been made to verify correct operation of this software, I 
 
 ## License
 
-This project is licensed under the GPL-3 License
+This project is licensed under the GPL3 license
 
 ## Acknowledgments
 
