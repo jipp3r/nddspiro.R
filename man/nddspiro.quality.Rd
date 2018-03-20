@@ -17,4 +17,3 @@ Character representing quality (possibilities are A,B,C,D,F).
 \description{
 Gives quality measure from series of spirometry measures
 }
-\keyword{internal}

@@ -6,8 +6,7 @@
   #' @param fev Vector of double. One or more values of FEV1.
   #' @param fvc Vector of double. One or more values of FVC.
   #' @return Character representing quality (possibilities are A,B,C,D,F).
-  #'
-  #' @keywords internal
+
   
   
 # Based on the following criteria for grading...
