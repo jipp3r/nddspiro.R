@@ -5,12 +5,14 @@
 \title{Get spirometry results}
 \usage{
 nddspiro.results(indices, file, xpath, label = "", test_only = FALSE,
-  no_ranges = FALSE)
+  no_ranges = FALSE, accepted_only = FALSE)
 }
 \arguments{
 \item{test_only}{Boolean. Optional. If TRUE suppresses the return patient details.}
 
 \item{no_ranges}{Boolean. Optional. If TRUE suppresses the predicted values.}
+
+\item{accepted_only}{Boolean. Optional. If TRUE suppresses the unacceptable traces labels}
 
 \item{param}{Character vector. Parameter to be returned.}
 

@@ -1,5 +1,7 @@
+.gitignore.txt
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 runAnalysisReal.R
+nddspiro.R.Rproj
