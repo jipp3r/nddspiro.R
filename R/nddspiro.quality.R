@@ -1,11 +1,15 @@
 
-  #' Get spirometry quality
-  #'
-  #' Gives quality measure from series of spirometry measures
-  #'
-  #' @param fev Vector of double. One or more values of FEV1.
-  #' @param fvc Vector of double. One or more values of FVC.
-  #' @return Character representing quality (possibilities are A,B,C,D,F).
+#' Get spirometry quality
+#'
+#' Gives quality measure from series of spirometry measures
+#'
+#' @details
+#' Adds a spirometry quality indicator given values 
+#'
+#' @param fev Vector of double. One or more values of FEV1.
+#' @param fvc Vector of double. One or more values of FVC.
+#' @return Character representing quality (possibilities are A,B,C,D,F).
+#' @export
 
   
   
