@@ -6,32 +6,40 @@
 #' @param nodelist XML nodelist. Nodes to be searched.
 #' @param test_only Boolean. Optional. If TRUE suppresses the return patient details.
 #' @param no_ranges Boolean. Optional. If TRUE suppresses the predicted values.
+#' @param accepted_only Boolean. Optional. If TRUE suppresses the unacceptable traces labels
 #' @return Dataframe of results for the given parameters.
 #'
 #' @keywords internal
 
-nddspiro.results <- function(indices, file, xpath, label="", test_only=FALSE, no_ranges=FALSE) {
+nddspiro.results <- function(indices, file, xpath, label="", test_only=FALSE, no_ranges=FALSE, accepted_only=FALSE) {
   # indices is a list of values, each of which can be:
   #    FEV1; FEV3; FEV6; FEV_5; FEV_75;
   #    FEF25; FEF50; FEF75; FEF2575;
   #    PEF; FET; FVC; FEV1_FVC; BEV; EOTV; PEFT;
   #    VCmax; BTPSin
   #    T0; BTPSex; AmbPressure; AmbHumidity
-
+  
   # file is XML file to be traversed
   # xpath is the xpath expression which determines which trials will be chosen
   # label is an optional character vector to append to variable names
   # test_only is an optional boolean which supresses patient details if TRUE
   # no_ranges is an optional boolean which supresses normal range data if TRUE
-
+  
   trials <- xpathApply(file, xpath)
   tests <- xmlSApply(trials, xpathApply, "../..")
   patients <- xmlSApply(trials, xpathApply, "../../../../../..")
-
+  
   results.df <- lapply(indices, nddspiro.values, nodelist=trials, no_ranges=no_ranges, label=label) %>% bind_cols()
-
+  
+  if(!accepted_only) {
+    accepted.df <-   data.frame(as.logical(sapply(xmlSApply(trials, xpathApply, "Accepted"), xmlValue)))
+    names(accepted.df) <- c(paste0("accepted_", label))  
+    
+    results.df <- cbind(results.df, accepted.df)
+  }
+  
   test.df <- data.frame("nddTestID" = sapply(tests, xmlGetAttr, "TestAutoID"))
-
+  
   patients.df <- data.frame("patientID" = sapply(patients, xmlGetAttr, "ID"))
   patients.df <- cbind.data.frame(patients.df,data.frame("nddPatientID" = sapply(patients, xmlGetAttr, "PatientAutoID")))
   patients.df <- cbind.data.frame(patients.df,data.frame("lastName" = sapply(xmlSApply(trials, xpathApply, "../../../../../../LastName"),xmlValue)))
@@ -56,21 +64,21 @@ nddspiro.results <- function(indices, file, xpath, label="", test_only=FALSE, no
   patients.df <- cbind.data.frame(patients.df,data.frame("testStage" = sapply(tests, xmlGetAttr, "StageType"), stringsAsFactors = TRUE))
   patients.df <- cbind.data.frame(patients.df,data.frame("nddTrialID" = xmlSApply(trials, xmlGetAttr, "TrialAutoID"), stringsAsFactors = FALSE))
   patients.df <- cbind.data.frame(patients.df,data.frame("deviceID" = sapply(xmlSApply(trials, xpathApply, "../../Device/SerialNumber"), xmlValue),stringsAsFactors = TRUE))
-
+  
   patients.df <- cbind.data.frame(patients.df,data.frame("age" = (patients.df$testDate - patients.df$dob)/365.25))
-
+  
   # Recode ethnicity to be (1 = Caucasian, 2 = African-American, 3 = NE Asian, 4 = SE Asian, 5 = Other/mixed)
-
+  
   return.df <- cbind.data.frame(test.df, results.df)
-
+  
   if(!no_ranges) {
     ranges.df <- data.frame("PredictedSet" = sapply(xmlSApply(trials, xpathApply, "../../../../PredictedSet/Spiro"),xmlValue),
                             "EthnicCorrection" = sapply(xmlSApply(trials, xpathApply, "../../../../PredictedSet/EthnicCorrection"),xmlValue))
     return.df <- cbind.data.frame(ranges.df, return.df)
   }
-
+  
   if(!test_only) {return.df <- cbind.data.frame(patients.df, return.df)}
-
-
+  
+  
   return(return.df)
 }
