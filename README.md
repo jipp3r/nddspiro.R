@@ -19,7 +19,7 @@ install.packages('dplyr')
 
 Open R, and type:
 ```
-devtools::install_git("https://github.com/jipp3r/nddspiro.git")
+devtools::install_git("https://github.com/jipp3r/nddspiro.R.git")
 ```
 If you do not have the package "devtools", first install it from CRAN with:
 ```
