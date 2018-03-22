@@ -111,25 +111,25 @@ nddspiro.read <-
       return.df <-
         cbind.data.frame(return.df, data.frame("gli_z_fev1" = ((return.df$FEV1_value_1 - return.df$pred.FEV1) / ((
           return.df$pred.FEV1 - return.df$LLN.FEV1
-        ) / 1.64)
+        ) / 1.6449)
         )))
       
       return.df <-
         cbind.data.frame(return.df, data.frame("gli_z_fvc" = ((return.df$FVC_value_1 - return.df$pred.FVC) / ((
           return.df$pred.FVC - return.df$LLN.FVC
-        ) / 1.64)
+        ) / 1.6449)
         )))
       
       return.df <-
         cbind.data.frame(return.df, data.frame("gli_z_fev1fvc" = ((return.df$FEV1_FVC_value_1 - return.df$pred.FEV1FVC) / ((
           return.df$pred.FEV1FVC - return.df$LLN.FEV1FVC
-        ) / 1.64)
+        ) / 1.6449)
         )))
       
       return.df <-
         cbind.data.frame(return.df, data.frame("gli_z_fef2575" = ((return.df$FEF2575_value_1 - return.df$pred.FEF2575) / ((
           return.df$pred.FEF2575 - return.df$LLN.FEF2575
-        ) / 1.64)
+        ) / 1.6449)
         )))
       
     }
