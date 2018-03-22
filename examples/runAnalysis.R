@@ -1,6 +1,7 @@
 
 library(nddspiro)
 library(dplyr)
+library(XML)
 
 indices <- as.list(c("FEV1",
                      "FEV6",

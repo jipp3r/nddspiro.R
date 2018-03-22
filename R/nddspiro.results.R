@@ -47,6 +47,8 @@ nddspiro.results <- function(indices, file, xpath, label="", test_only=FALSE, no
   patients.df <- cbind.data.frame(patients.df,data.frame("height" = as.double(sapply(xmlSApply(trials, xpathApply, "../../PatientDataAtTestTime/Height"), xmlValue)),stringsAsFactors = FALSE))
   patients.df <- cbind.data.frame(patients.df,data.frame("weight" = as.double(sapply(xmlSApply(trials, xpathApply, "../../PatientDataAtTestTime/Weight"), xmlValue)),stringsAsFactors = FALSE))
   patients.df <- cbind.data.frame(patients.df,data.frame("ethnicity" = as.character(sapply(xmlSApply(trials, xpathApply, "../../PatientDataAtTestTime/Ethnicity"), xmlValue)),stringsAsFactors = TRUE))
+
+  # Recode ethnicity to be (1 = Caucasian, 2 = African-American, 3 = NE Asian, 4 = SE Asian, 5 = Other/mixed)
   patients.df$ethnic_gli[patients.df$ethnicity=='Caucasian'] <- 1
   patients.df$ethnic_gli[patients.df$ethnicity=='African'] <- 2
   patients.df$ethnic_gli[patients.df$ethnicity=='North-East Asian'] <- 3
@@ -55,6 +57,7 @@ nddspiro.results <- function(indices, file, xpath, label="", test_only=FALSE, no
   patients.df$ethnic_gli[patients.df$ethnicity=='Other'] <- 5
   patients.df$ethnic_gli[patients.df$ethnicity=='Hispanic'] <- 5
   patients.df <- cbind.data.frame(patients.df,data.frame("gender" = as.character(sapply(xmlSApply(trials, xpathApply, "../../PatientDataAtTestTime/Gender"), xmlValue)),stringsAsFactors = TRUE))
+
   # Recode gender to be 2 factors, first male (to be consistent with rspiro)
   patients.df$gender <- factor(patients.df$gender, levels = c("Male", "Female"))
   patients.df <- cbind.data.frame(patients.df,data.frame("dob" = as.Date((sapply(xmlSApply(trials, xpathApply, "../../PatientDataAtTestTime/DateOfBirth"), xmlValue))), stringsAsFactors = FALSE))
@@ -67,8 +70,7 @@ nddspiro.results <- function(indices, file, xpath, label="", test_only=FALSE, no
   
   patients.df <- cbind.data.frame(patients.df,data.frame("age" = (patients.df$testDate - patients.df$dob)/365.25))
   
-  # Recode ethnicity to be (1 = Caucasian, 2 = African-American, 3 = NE Asian, 4 = SE Asian, 5 = Other/mixed)
-  
+
   return.df <- cbind.data.frame(test.df, results.df)
   
   if(!no_ranges) {
